@@ -8,17 +8,31 @@ const readJsonData = async () => {
 };
 
 // convert json to csv
-
 const convertJsonToCsv = async (data: Record<string, Record<string, any>>) => {
-  const headers = Object.keys(data[Object.keys(data)[0]]);
+  // const headers = Object.keys(data[Object.keys(data)[0]]);
+  const headers = [
+    "id",
+    "name",
+    "contactNumber",
+    "companyName",
+    "pageNumber",
+    "mainImgLink",
+    "address",
+  ];
   const csv = [headers.join(",")];
 
   for (const key in data) {
     const row = data[key];
-    const values = headers.map((header) => row[header]);
+    const values = headers.map((header) => {
+      if (header === "address") {
+        row[header] = row[header].replace(/,/g, " - ");
+      }
+      return row[header];
+    });
     csv.push(values.join(","));
   }
 
+  console.log(`writing ${csv.length} records to csv file`);
   return csv.join("\n");
 };
 
