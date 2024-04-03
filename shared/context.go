@@ -17,15 +17,6 @@ func SaveContextToFile(page playwright.Page, fileName string) (*playwright.Stora
 		return nil, err
 	}
 
-	// data, err := json.MarshalIndent(state, "", "  ")
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// err = os.WriteFile(fileName+".json", data, 0644)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
 	return state, nil
 }
 

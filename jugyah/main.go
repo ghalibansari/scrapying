@@ -1,12 +1,13 @@
 package main
 
 import (
-	"scrapJD/propi"
+	"shared"
 )
 
 func main() {
 	print("Main Code Started \n")
 
-	propi.Main()
+	//propi.Main()
+	shared.Main()
 
 }
