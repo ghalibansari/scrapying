@@ -18,5 +18,6 @@
     "titleBar.inactiveBackground": "#41f92299",
     "titleBar.inactiveForeground": "#15202b99"
   },
-  "peacock.color": "#41f922"
+  "peacock.color": "#41f922",
+  "cSpell.words": ["MRCN"]
 }

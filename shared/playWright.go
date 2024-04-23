@@ -9,8 +9,8 @@ func InitPlaywrightPage() (*playwright.Playwright, playwright.Browser, playwrigh
 	}
 
 	browser, err := pw.Chromium.Launch(playwright.BrowserTypeLaunchOptions{
-		// Headless: playwright.Bool(false),
-		// SlowMo:   playwright.Float(2_000),
+		Headless: playwright.Bool(false),
+		SlowMo:   playwright.Float(2_000),
 	})
 	if err != nil {
 		return nil, nil, nil, nil, err

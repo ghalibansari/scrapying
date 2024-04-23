@@ -3,12 +3,19 @@ package shared
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func FileExtensionNotAllowed(filename string) error {
-	if filename[len(filename)-5:] == ".json" {
+	if len(filename) == 0 {
+		return fmt.Errorf("file name cannot be empty")
+	}
+
+	inValidFileName := strings.Contains(filename, ".") || strings.Contains(filename, " ")
+	if inValidFileName {
 		return fmt.Errorf("file extension not allowed")
 	}
+
 	return nil
 }
 

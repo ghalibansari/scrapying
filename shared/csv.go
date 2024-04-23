@@ -1,6 +1,7 @@
 package shared
 
 import (
+	"encoding/csv"
 	"fmt"
 	"os"
 )
@@ -21,29 +22,22 @@ func WriteCsvFile(filename string, header []string, data [][]string) error {
 	}
 	defer file.Close()
 
-	_, err = file.WriteString(ToCsv(header))
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+
+	err = writer.Write(header)
 	if err != nil {
 		return err
 	}
 
 	for _, v := range data {
-		_, err = file.WriteString(ToCsv(v))
+		err = writer.Write(v)
 		if err != nil {
 			return err
 		}
 	}
 
-	return nil
-}
+	defer writer.Flush()
 
-func ToCsv(data []string) string {
-	var csv string
-	for i, v := range data {
-		csv += v
-		if i != len(data)-1 {
-			csv += ","
-		}
-	}
-	csv += "\n"
-	return csv
+	return nil
 }
