@@ -15,9 +15,14 @@ func LoadAgentUrlsMap(fileName string) AgentsUrlMap {
 	return agentsUrl
 }
 
-func FetchAgentDetail(page playwright.Page, agentUrl string) {
+func FetchAgentDetail(page playwright.Page, agentUrl string) (map[string]interface{}, error) {
+
 	url := baseURL + agentUrl
 	page.Goto(url)
+
+	var agentData map[string]interface{} = make(map[string]interface{})
+	agentData["properties"] = make([]map[string]string, 0)
+	agentData["projects"] = make([]map[string]string, 0)
 
 	// googAfterNoonText := "text=Afternoon, Pravin!"
 	googAfterNoonText := "text=Guest!"
@@ -29,35 +34,31 @@ func FetchAgentDetail(page playwright.Page, agentUrl string) {
 		},
 	); err != nil {
 		msg := fmt.Sprintf("could not find good afternoon text: user Not logged in: %v", err)
-		// panic(msg)
 		fmt.Println(msg)
+		panic(msg)
 	}
 
-	// get div with class name "row"
 	rowLocator := page.Locator(".row")
 	rows, err := rowLocator.All()
 	if err != nil {
 		fmt.Println("could not get div with class name row:", err)
-		return
+		return nil, err
 	}
 
-	// get div with class name "col-md-6 col-sm-6 col-lg-4"
 	userDetail, err := rows[1].Locator(".col-md-6.col-sm-6.col-lg-4").All()
 	if err != nil {
 		fmt.Println("could not get div with class name col-md-6 col-sm-6 col-lg-4:", err)
-		return
+		return nil, err
 	}
 
-	///////////
 	MRCNText, err := userDetail[0].Locator("#ContentPlaceHolderMain_trRERA td.text-right").First().InnerText(
 		playwright.LocatorInnerTextOptions{Timeout: playwright.Float(1_000)},
 	)
 	if err != nil {
 		fmt.Println("could not get table:", err)
 	}
-
 	MRCNText = strings.TrimSpace(MRCNText)
-	fmt.Println("Table:", MRCNText)
+	agentData["MRCN"] = MRCNText
 
 	/////////////////
 	Location, err := userDetail[0].Locator("#ContentPlaceHolderMain_trAdd > td:nth-child(2) > div:nth-child(2)").First().InnerText(
@@ -66,134 +67,104 @@ func FetchAgentDetail(page playwright.Page, agentUrl string) {
 	if err != nil {
 		fmt.Println("could not get Location:", err)
 	}
-
 	Location = strings.TrimSpace(Location)
-
-	fmt.Println("Location:", Location)
+	agentData["Location"] = Location
 
 	/////////////////
-	specializations, err := userDetail[0].Locator("#ContentPlaceHolderMain_tr7 > td > span").All()
+	specializationsLocator, err := userDetail[0].Locator("#ContentPlaceHolderMain_tr7 > td > span").All()
 	if err != nil {
 		fmt.Println("could not get specializations:", err)
-		return
 	}
-	fmt.Println("Number of specializations:", len(specializations), "pppppppp")
 
-	var specializations1 []string = []string{}
-	for _, specialization := range specializations {
+	var specializations []string = []string{}
+	for _, specialization := range specializationsLocator {
 		text, err := specialization.InnerText(
 			playwright.LocatorInnerTextOptions{Timeout: playwright.Float(1_000)},
 		)
 		if err != nil {
 			fmt.Println("could not get specialization text:", err)
-			return
 		}
-		specializations1 = append(specializations1, text)
+		specializations = append(specializations, text)
 	}
-
-	fmt.Println("specializations1:", specializations1)
+	agentData["specializations"] = specializations
 
 	////////////
-	AreasOfOperation, err := userDetail[0].Locator("#ContentPlaceHolderMain_trAOP > td > span").All()
+	AreasOfOperationLocator, err := userDetail[0].Locator("#ContentPlaceHolderMain_trAOP > td > span").All()
 	if err != nil {
 		fmt.Println("could not get AreasOfOperation:", err)
-		return
 	}
 
-	var AreasOfOperation1 []string = []string{}
-	for _, AreaOfOperation := range AreasOfOperation {
+	var AreasOfOperation []string = []string{}
+	for _, AreaOfOperation := range AreasOfOperationLocator {
 		text, err := AreaOfOperation.InnerText(
 			playwright.LocatorInnerTextOptions{Timeout: playwright.Float(1_000)},
 		)
 		if err != nil {
 			fmt.Println("could not get AreaOfOperation text:", err)
-			return
 		}
-		AreasOfOperation1 = append(AreasOfOperation1, text)
+		AreasOfOperation = append(AreasOfOperation, text)
 	}
-
-	fmt.Println("AreasOfOperation1:", AreasOfOperation1)
+	agentData["AreasOfOperation"] = AreasOfOperation
 
 	////
-	ActiveInBuildings, err := userDetail[0].Locator("#ContentPlaceHolderMain_tr1 > td > span").All()
+	ActiveInBuildingsLocator, err := userDetail[0].Locator("#ContentPlaceHolderMain_tr1 > td > span").All()
 	if err != nil {
 		fmt.Println("could not get ActiveInBuildings:", err)
-		return
 	}
 
-	var ActiveInBuildings1 []string = []string{}
-	for _, ActiveInBuilding := range ActiveInBuildings {
+	var ActiveInBuildings []string = []string{}
+	for _, ActiveInBuilding := range ActiveInBuildingsLocator {
 		text, err := ActiveInBuilding.InnerText(
 			playwright.LocatorInnerTextOptions{Timeout: playwright.Float(1_000)},
 		)
 		if err != nil {
 			fmt.Println("could not get ActiveInBuilding text:", err)
-			return
 		}
-		ActiveInBuildings1 = append(ActiveInBuildings1, text)
+		ActiveInBuildings = append(ActiveInBuildings, text)
 	}
-
-	fmt.Println("ActiveInBuildings1:", ActiveInBuildings1)
+	agentData["ActiveInBuildings"] = ActiveInBuildings
 
 	///
-	ActiveInLocations, err := userDetail[0].Locator("#ContentPlaceHolderMain_tr5 > td > span").All()
+	ActiveInLocationsLocator, err := userDetail[0].Locator("#ContentPlaceHolderMain_tr5 > td > span").All()
 	if err != nil {
 		fmt.Println("could not get ActiveInLocations:", err)
-		return
 	}
 
-	var ActiveInLocations1 []string = []string{}
-	for _, ActiveInLocation := range ActiveInLocations {
+	var ActiveInLocations []string = []string{}
+	for _, ActiveInLocation := range ActiveInLocationsLocator {
 		text, err := ActiveInLocation.InnerText(
 			playwright.LocatorInnerTextOptions{Timeout: playwright.Float(1_000)},
 		)
 		if err != nil {
 			fmt.Println("could not get ActiveInLocation text:", err)
-			return
 		}
-		ActiveInLocations1 = append(ActiveInLocations1, text)
+		ActiveInLocations = append(ActiveInLocations, text)
+	}
+	agentData["ActiveInLocations"] = ActiveInLocations
+
+	err = handlePropertiesTab(page, agentData)
+	if err != nil {
+		fmt.Println("could not handle properties tab:", err)
 	}
 
-	fmt.Println("ActiveInLocations1:", ActiveInLocations1)
-	fmt.Println("/////////////////////////////=============================")
+	err = handleProjectsTab(page, agentData)
+	if err != nil {
+		fmt.Println("could not handle projects tab:", err)
+	}
 
-	//////////////////////
-	/////////////////////
-	getPropertiesTab(page)
-	//
-
-	/////////////////////
-	/////////////////////
-	// getProjectsTab(page)
-
-	/////////////////////
-	/////////////////////
-	checkPaginationExistForPropertyTab(page)
-
-	/////////////////////////
-	fmt.Println("User is logged in")
+	return agentData, nil
 }
 
-func getPropertiesTab(page playwright.Page) {
+func handlePropertiesTab(page playwright.Page, agentData map[string]interface{}) error {
 	// get properties of tab
 	const tabId = "a[href=\"#Properties\"]"
 	// const tabId = "a[href=\"#Requirements\"]"
 	propertiesLink := page.Locator(tabId).First()
 
-	//print properties html
-	propertiesHtml, err := propertiesLink.InnerHTML()
-	if err != nil {
-		fmt.Println("could not get properties html:", err)
-		return
-	}
-	fmt.Println("properties html:xxxxxxxxxxxxxx", propertiesHtml, "kkkkkkkkkkkkkkk")
-
-	propertiesLink = page.Locator(tabId).First()
-
-	err = propertiesLink.Click()
+	err := propertiesLink.Click()
 	if err != nil {
 		fmt.Println("could not click on properties link:", err)
-		return
+		return nil
 	}
 
 	// properties table
@@ -219,158 +190,156 @@ func getPropertiesTab(page playwright.Page) {
 	// 	return
 	// }
 
+	getPropertyTableData(page, agentData)
+
+	checkPaginationExistForPropertyTab(page, agentData)
+
+	return nil
+
+}
+
+func getPropertyTableData(page playwright.Page, agentData map[string]interface{}) {
 	propertiesTableBody := page.Locator("#Properties.tab-pane.fade > .card-body > table > tbody > tr > td> .dxgvCSD > table > tbody").First()
 
-	propertiesTableDatas, err := propertiesTableBody.Locator("tr").All()
+	propertiesTableTableRows, err := propertiesTableBody.Locator("tr").All()
 	if err != nil {
-		fmt.Println("could not get properties table datas:", err)
+		fmt.Println("could not get properties table data:", err)
 		return
 	}
 
-	fmt.Println("Number of properties table datas:", len(propertiesTableDatas))
+	handlePropertiesTabRowsData(propertiesTableTableRows, agentData)
+}
 
-	// for _, propertiesTableData := range propertiesTableDatas {
-	// 	propertiesTableDataHtml, err := propertiesTableData.InnerHTML()
-	// 	if err != nil {
-	// 		fmt.Println("could not get properties table data html:", err)
-	// 		return
-	// 	}
-	// 	fmt.Println("properties table data html:", propertiesTableDataHtml)
+func handlePropertiesTabRowsData(rows []playwright.Locator, agentData map[string]interface{}) []map[string]string {
+
+	fmt.Println("Number of properties ", len(rows))
+
+	// array for map[string]string
+	var properties []map[string]string
+
+	for i, row := range rows {
+		// start at 4th row
+		fmt.Println("row number:", i)
+		if i > 3 {
+
+			property, err := handlePropertyTabColumnData(row)
+			if err != nil {
+				fmt.Println("could not get property data:", err)
+			}
+			properties = append(properties, property)
+		}
+	}
+
+	// print properties
+	// fmt.Println("properties:", properties)
+
+	// property := properties[0]
+	// var header []string
+	// for key := range property {
+	// 	header = append(header, key)
 	// }
-	// get first tr of properties table datas == skip 3
-	propertiesTableData := propertiesTableDatas[4] // 4 is row number
-	data, _ := propertiesTableData.Locator("td").All()
 
-	// len data
-	fmt.Println("Number of properties table data:222222222222222222222222", len(data))
-	firstProperties := data[0]
+	// var data [][]string
+	// for _, value := range properties {
+	// 	var row []string
+	// 	for _, val := range header {
+	// 		row = append(row, value[val])
+	// 	}
+	// 	data = append(data, row)
+	// }
+	// shared.WriteCsvFile("properties1", header, data)
 
-	firstPropertiesLink, err := firstProperties.Locator("a").First().GetAttribute("href")
-	if err != nil {
-		fmt.Println("could not get first properties link:", err)
-		return
-	}
-	fmt.Println("first properties link:", firstPropertiesLink)
-
-	firstPropertiesText, err := firstProperties.Locator("a").First().TextContent()
-	if err != nil {
-		fmt.Println("could not get first properties html:", err)
-		return
-	}
-
-	// trim first properties text
-	fmt.Println("first properties html:", strings.TrimSpace(firstPropertiesText), "kkkkkkkkkkkkkkk")
-
-	locationData := data[1]
-	locationText, err := locationData.InnerText()
-	if err != nil {
-		fmt.Println("could not get other data text:", err)
-		return
-	}
-	locationUrl, err := locationData.Locator("a").First().GetAttribute("href")
-	if err != nil {
-		fmt.Println("could not get other data text:", err)
-		return
-	}
-	fmt.Println("other data text:333333333333333", locationUrl)
-
-	fmt.Println("other data text:444444444444444", locationText)
-
-	priceData := data[2]
-	priceText, err := priceData.InnerText()
-	if err != nil {
-		fmt.Println("could not get other data text:", err)
-		return
-	}
-	fmt.Println("other data text:555555555555555", priceText)
-
-	buildingData := data[3]
-	buildingText, err := buildingData.InnerText()
-	if err != nil {
-		fmt.Println("could not get other data text:", err)
-		return
-	}
-	fmt.Println("other data text:666666666666666", buildingText)
-
-	floorData := data[4]
-	floorText, err := floorData.InnerText()
-	if err != nil {
-		fmt.Println("could not get other data text:", err)
-		return
-	}
-	fmt.Println("other data text:777777777777777", floorText)
-
-	addedData := data[5]
-	addedText, err := addedData.InnerText()
-	if err != nil {
-		fmt.Println("could not get other data text:", err)
-		return
-	}
-	fmt.Println("other data text:888888888888888", addedText)
-
-	updatedData := data[6]
-	updatedText, err := updatedData.InnerText()
-	if err != nil {
-		fmt.Println("could not get other data text:", err)
-		return
-	}
-	fmt.Println("other data text:999999999999999", updatedText)
+	var oldProperties []map[string]string = agentData["properties"].([]map[string]string)
+	var newProperties []map[string]string = append(oldProperties, properties...)
+	agentData["properties"] = newProperties
+	return properties
 }
 
-func getProjectsTab(page playwright.Page) {
-	const tabId = "a[href=\"#Projects\"]"
-
-	projectTab := page.Locator(tabId).First()
-
-	err := projectTab.Click()
+func handlePropertyTabColumnData(row playwright.Locator) (map[string]string, error) {
+	columns, err := row.Locator("td").All()
 	if err != nil {
-		fmt.Println("could not click on projects link:", err)
-		return
+		fmt.Println("could not get columns in property table: ", err)
+		return nil, err
 	}
 
-	projectsTableBody := page.Locator("#Projects.tab-pane.fade > .card-body > table > tbody > tr > td> .dxgvCSD > table > tbody").First()
-
-	projectsTableRows, err := projectsTableBody.Locator("tr").All()
+	propertyColumn := columns[0]
+	propertyLink, err := propertyColumn.Locator("a").First().GetAttribute("href")
 	if err != nil {
-		fmt.Println("could not get projects table datas:", err)
-		return
+		fmt.Println("could not get property link:", err)
+		return nil, err
+	}
+	propertyName, err := propertyColumn.Locator("a").First().TextContent()
+	if err != nil {
+		fmt.Println("could not get property name:", err)
+		return nil, err
+	}
+	propertyName = strings.Join(strings.Fields(propertyName), " ")
+	propertyName = strings.TrimSpace(propertyName)
+
+	locationColumn := columns[1]
+	locationLink, err := locationColumn.Locator("a").First().GetAttribute("href")
+	if err != nil {
+		fmt.Println("could not get location link:", err)
+		return nil, err
+	}
+	location, err := locationColumn.InnerText()
+	if err != nil {
+		fmt.Println("could not get location:", err)
+		return nil, err
+	}
+	location = strings.TrimSpace(location)
+
+	priceColumn := columns[2]
+	price, err := priceColumn.InnerText()
+	if err != nil {
+		fmt.Println("could not get price:", err)
+		return nil, err
 	}
 
-	fmt.Println("Number of projects table datas:ccccccccccc", len(projectsTableRows))
-
-	row := projectsTableRows[3] // row
-
-	columns, _ := row.Locator("td").All()
-
-	// projectColumn := row.Locator("td > a").First()
-	projectColumn := columns[0].Locator("a").First()
-
-	projectLink, err := projectColumn.GetAttribute("href")
+	buildingColumn := columns[3]
+	building, err := buildingColumn.InnerText()
 	if err != nil {
-		fmt.Println("could not get project link:", err)
-		return
+		fmt.Println("could not get building:", err)
+		return nil, err
 	}
-	fmt.Println("project link:11111111111111xxxxxxxxxxxxxx", projectLink)
 
-	projectText, err := projectColumn.TextContent()
+	floorColumn := columns[4]
+	floor, err := floorColumn.InnerText()
 	if err != nil {
-		fmt.Println("could not get project html:", err)
-		return
+		fmt.Println("could not get floor:", err)
+		return nil, err
 	}
-	fmt.Println("project html:xxxxxxxxxxxxxx", projectText, "kkkkkkkkkkkkkkk")
 
-	developerColumn, _ := columns[1].InnerText()
-	fmt.Println("developerColumn:xxxxxxxxxxxxxx", developerColumn, "oooooooooooooooo")
+	createdAtColumn := columns[5]
+	createdAt, err := createdAtColumn.InnerText()
+	if err != nil {
+		fmt.Println("could not get created at:", err)
+		return nil, err
+	}
 
-	locationColumn, _ := columns[2].InnerText()
-	fmt.Println("locationColumn:xxxxxxxxxxxxxx", locationColumn, "oooooooooooooooo")
+	updatedAtColumn := columns[6]
+	updatedAt, err := updatedAtColumn.InnerText()
+	if err != nil {
+		fmt.Println("could not get updated at:", err)
+		return nil, err
+	}
 
-	mAHAReRaNoText, _ := columns[3].InnerText()
-	fmt.Println("mAHAReRaNoText:xxxxxxxxxxxxxx", mAHAReRaNoText, "oooooooooooooooo")
+	property := map[string]string{
+		"propertyLink": propertyLink,
+		"propertyName": propertyName,
+		"locationLink": locationLink,
+		"location":     location,
+		"price":        price,
+		"building":     building,
+		"floor":        floor,
+		"createdAt":    createdAt,
+		"updatedAt":    updatedAt,
+	}
+
+	return property, nil
 }
 
-func checkPaginationExistForPropertyTab(page playwright.Page) {
-
+func checkPaginationExistForPropertyTab(page playwright.Page, agentData map[string]interface{}) {
 	checkPaginationExistsLocator := page.Locator("#Properties.tab-pane.fade > .card-body > table > tbody > tr > td > .dxgvPagerBottomPanel_Material")
 
 	count, err := checkPaginationExistsLocator.Count()
@@ -379,25 +348,19 @@ func checkPaginationExistForPropertyTab(page playwright.Page) {
 		return
 	}
 
-	fmt.Println("paginationExists:", "Number of paginationExists:", count)
-
-	// return paginationExists, len(checkPaginationExists)
-	getPaginationCount(page)
-}
-
-func getPaginationCount(page playwright.Page) {
-	paginationNextButtonLocator := page.Locator("#ContentPlaceHolderMain_MyProps_DXPagerBottom_PBN").First()
-
-	err := paginationNextButtonLocator.Click()
-	if err != nil {
-		fmt.Println("could not click on next button:", err)
+	if count == 0 {
+		fmt.Println("No pagination exists")
 		return
 	}
 
+	clickOnNextButtonForPropertyTab(page, agentData)
 }
 
-func clickOnNextButtonForPropertyTab(paginationNextButtonLocator playwright.Locator) {
-	isEnabled, err := paginationNextButtonLocator.IsEnabled()
+func clickOnNextButtonForPropertyTab(page playwright.Page, agentData map[string]interface{}) {
+
+	paginationNextButtonLocator := page.Locator("#ContentPlaceHolderMain_MyProps_DXPagerBottom_PBN").First()
+
+	isDisabled, err := paginationNextButtonLocator.IsDisabled()
 	if err != nil {
 		fmt.Println("could not get next button is enabled:", err)
 		return
@@ -412,8 +375,8 @@ func clickOnNextButtonForPropertyTab(paginationNextButtonLocator playwright.Loca
 		fmt.Println("could not wait for next button:", err)
 		return
 	}
-	if !isEnabled {
-		fmt.Println("Next button is not enabled")
+	if isDisabled {
+		fmt.Println("Next button is disabled")
 		return
 	}
 
@@ -423,5 +386,163 @@ func clickOnNextButtonForPropertyTab(paginationNextButtonLocator playwright.Loca
 		return
 	}
 
-	clickOnNextButtonForPropertyTab(paginationNextButtonLocator)
+	getPropertyTableData(page, agentData)
+	clickOnNextButtonForPropertyTab(page, agentData)
+}
+
+func handleProjectsTab(page playwright.Page, agentData map[string]interface{}) error {
+	const tabId = "a[href=\"#Projects\"]"
+
+	projectTab := page.Locator(tabId).First()
+
+	err := projectTab.Click()
+	if err != nil {
+		fmt.Println("could not click on projects link:", err)
+		return nil
+	}
+
+	getProjectTableData(page, agentData)
+
+	checkPaginationExistForProjectTab(page, agentData)
+
+	return nil
+}
+
+func getProjectTableData(page playwright.Page, agentData map[string]interface{}) {
+	projectsTableBody := page.Locator("#Projects.tab-pane.fade > .card-body > table > tbody > tr > td> .dxgvCSD > table > tbody").First()
+
+	projectsTableRows, err := projectsTableBody.Locator("tr").All()
+	if err != nil {
+		fmt.Println("could not get projects table data:", err)
+		return
+	}
+
+	handleProjectsTabRowsData(projectsTableRows, agentData)
+}
+
+func handleProjectsTabRowsData(rows []playwright.Locator, agentData map[string]interface{}) []map[string]string {
+
+	fmt.Println("Number of projects ", len(rows))
+
+	// array for map[string]string
+	var projects []map[string]string
+
+	for i, row := range rows {
+		// start at 4th row
+		fmt.Println("row number:", i)
+		if i > 3 {
+
+			project, err := handleProjectTabColumnData(row)
+			if err != nil {
+				fmt.Println("could not get project data:", err)
+			}
+			projects = append(projects, project)
+		}
+	}
+
+	var oldProjects []map[string]string = agentData["projects"].([]map[string]string)
+	var newProjects []map[string]string = append(oldProjects, projects...)
+	agentData["projects"] = newProjects
+	return projects
+}
+
+func handleProjectTabColumnData(row playwright.Locator) (map[string]string, error) {
+	columns, err := row.Locator("td").All()
+	if err != nil {
+		fmt.Println("could not get columns in property table: ", err)
+		return nil, err
+	}
+
+	projectColumn := columns[0]
+	projectLink, err := projectColumn.Locator("a").First().GetAttribute("href")
+	if err != nil {
+		fmt.Println("could not get project link:", err)
+		return nil, err
+	}
+
+	projectText, err := projectColumn.Locator("a").First().TextContent()
+	if err != nil {
+		fmt.Println("could not get project name:", err)
+		return nil, err
+	}
+
+	developerColumnText, err := columns[1].InnerText()
+	if err != nil {
+		fmt.Println("could not get developer:", err)
+		return nil, err
+	}
+
+	locationColumnText, err := columns[2].InnerText()
+	if err != nil {
+		fmt.Println("could not get location:", err)
+		return nil, err
+	}
+
+	mAHAReRaNoColumnText, err := columns[3].InnerText()
+	if err != nil {
+		fmt.Println("could not get mAHAReRaNo:", err)
+		return nil, err
+	}
+
+	project := map[string]string{
+		"projectLink": projectLink,
+		"projectText": projectText,
+		"developer":   developerColumnText,
+		"location":    locationColumnText,
+		"mAHAReRaNo":  mAHAReRaNoColumnText,
+	}
+
+	return project, nil
+}
+
+func checkPaginationExistForProjectTab(page playwright.Page, agentData map[string]interface{}) {
+	checkPaginationExistsLocator := page.Locator("#Projects.tab-pane.fade > .card-body > table > tbody > tr > td > .dxgvPagerBottomPanel_Material")
+
+	count, err := checkPaginationExistsLocator.Count()
+	if err != nil {
+		fmt.Println("could not get paginationExists:", err)
+		return
+	}
+
+	if count == 0 {
+		fmt.Println("No pagination exists")
+		return
+	}
+
+	clickOnNextButtonForProjectTab(page, agentData)
+}
+
+func clickOnNextButtonForProjectTab(page playwright.Page, agentData map[string]interface{}) {
+
+	paginationNextButtonLocator := page.Locator("#ContentPlaceHolderMain_ASPxGridViewProjs_DXPagerBottom_PBN").First()
+
+	err := paginationNextButtonLocator.WaitFor(
+		playwright.LocatorWaitForOptions{
+			Timeout: playwright.Float(2_000),
+		},
+	)
+	if err != nil {
+		fmt.Println("could not wait for next button for project tab:", err)
+		return
+	}
+
+	isDisabled, err := paginationNextButtonLocator.GetAttribute("aria-disabled")
+	if err != nil {
+		fmt.Println("could not get paginationNextButton html:", err)
+		return
+	}
+
+	if isDisabled == "true" || isDisabled != "" {
+		fmt.Println("Next button is disabled")
+		return
+	}
+
+	err = paginationNextButtonLocator.Click()
+	if err != nil {
+		fmt.Println("could not click on next button:", err)
+		return
+	}
+
+	getProjectTableData(page, agentData)
+	clickOnNextButtonForProjectTab(page, agentData)
 }

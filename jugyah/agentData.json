@@ -1,0 +1,278 @@
+{
+  "ActiveInBuildings": [
+    "Zen Atlantis - Powai",
+    "The View - Powai",
+    "Raj Grandeur - Powai",
+    "Hiranandani Glen Croft - Powai",
+    "Glen Dale - Powai",
+    "Brentwood - Powai"
+  ],
+  "ActiveInLocations": [
+    "Powai - 6",
+    "Powai - 22 Projects",
+    "Kanjur Marg - 6 Projects",
+    "Mulund West - 6 Projects",
+    "Mahalaxmi - 2 Projects",
+    "Virar - 2 Projects"
+  ],
+  "AreasOfOperation": [
+    "Powai Vikhroli Andheri East"
+  ],
+  "Location": "1068, Heera Panna Shopping Center, Near Wadhwa Solitaire, A S Marg, Hiranandani, Powai",
+  "MRCN": "A51800002466",
+  "projects": [
+    {
+      "developer": "Godrej Properties",
+      "location": "Powai",
+      "mAHAReRaNo": "P51800028364",
+      "projectLink": "/project/godrej-urban-park-powai-by-godrej-properties/28303",
+      "projectText": "Godrej Urban Park"
+    },
+    {
+      "developer": "Runwal Group",
+      "location": "Kanjur Marg",
+      "mAHAReRaNo": "P51800001137",
+      "projectLink": "/project/runwal-forests-orchid-kanjur-marg-by-runwal-group/26135",
+      "projectText": "Runwal Forests - Orchid"
+    },
+    {
+      "developer": "Runwal Group",
+      "location": "Kanjur Marg",
+      "mAHAReRaNo": "P51800001137",
+      "projectLink": "/project/runwal-forests-orchid-kanjur-marg-by-runwal-group/26135",
+      "projectText": "Runwal Forests - Orchid"
+    },
+    {
+      "developer": "L and T Realty",
+      "location": "Powai",
+      "mAHAReRaNo": "P51800013504",
+      "projectLink": "/project/l-and-t-emerald-isle-tower-16-powai-by-l-and-t-realty/24840",
+      "projectText": "L and T Emerald Isle Tower 16"
+    },
+    {
+      "developer": "Runwal Group",
+      "location": "Mulund West",
+      "mAHAReRaNo": "P51800021322",
+      "projectLink": "/project/runwal-pinnacle-mulund-west-by-runwal-group/28304",
+      "projectText": "Runwal Pinnacle"
+    },
+    {
+      "developer": "Nahar Group",
+      "location": "Mahalaxmi",
+      "mAHAReRaNo": "P51900000138",
+      "projectLink": "/project/excalibur-mahalaxmi-by-nahar-group/15982",
+      "projectText": "Excalibur"
+    },
+    {
+      "developer": "Runwal Group",
+      "location": "Kanjur Marg",
+      "mAHAReRaNo": "P51800001838",
+      "projectLink": "/project/runwal-forests-lily-kanjur-marg-by-runwal-group/9529",
+      "projectText": "Runwal Forests - Lily"
+    },
+    {
+      "developer": "Runwal Apartments Private Limited",
+      "location": "Mumbai Suburban, 400022",
+      "mAHAReRaNo": "P51800000271",
+      "projectLink": "/project-rera/runwal-greens-wings-5-8-mumbai-suburban-by-runwal-apartments-private-limited/P51800000271",
+      "projectText": "Runwal Greens Wings 5 - 8"
+    },
+    {
+      "developer": "Wheelabrator Alloy Castings Limited",
+      "location": "Lbs Marg, Bhandup (W), Bhandup (W), Lbs Marg, Mumbai Suburban, 400078",
+      "mAHAReRaNo": "P51800000818",
+      "projectLink": "/project-rera/runwal-forest-tower-1-4-lbs-marg-by-wheelabrator-alloy-castings-limited/P51800000818",
+      "projectText": "Runwal Forest Tower 1-4"
+    },
+    {
+      "developer": "Evie Real Estate Private Limited",
+      "location": "Kanjurmarg, Kanjurmarg(E), Kanjurmarg(E), Kanjurmarg, Mumbai Suburban, 400042",
+      "mAHAReRaNo": "P51800005684",
+      "projectLink": "/project-rera/runwal-bliss-wing-b-kanjurmarg-by-evie-real-estate-private-limited/P51800005684",
+      "projectText": "Runwal Bliss Wing -B"
+    },
+    {
+      "developer": "Evie Real Estate Private Limited",
+      "location": "Kanjurmarg, Kanjurmarg (East), Kanjurmarg (East), Kanjurmarg, Mumbai Suburban, 400042",
+      "mAHAReRaNo": "P51800001670",
+      "projectLink": "/project-rera/runwal-bliss-wing-a-kanjurmarg-by-evie-real-estate-private-limited/P51800001670",
+      "projectText": "Runwal Bliss Wing - A"
+    },
+    {
+      "developer": "Larsen \u0026Amp; Toubro Ltd. (Realty Division)",
+      "location": "Mumbai Suburban, 400072",
+      "mAHAReRaNo": "P51800013214",
+      "projectLink": "/project-rera/emerald-isle-t15-mumbai-suburban-by-larsen-amp-toubro-ltd-realty-division/P51800013214",
+      "projectText": "Emerald Isle - T15"
+    },
+    {
+      "developer": "Evie Real Estate Private Limited",
+      "location": "Kanjurmarg, Kanjurmarg(E), Kanjurmarg(E), Kanjurmarg, Mumbai Suburban, 400042",
+      "mAHAReRaNo": "P51800001903",
+      "projectLink": "/project-rera/runwal-bliss-wing-c-kanjurmarg-by-evie-real-estate-private-limited/P51800001903",
+      "projectText": "Runwal Bliss Wing - C"
+    },
+    {
+      "developer": "Larsen \u0026Amp; Toubro Ltd. (Realty Division)",
+      "location": "Mumbai Suburban, 400072",
+      "mAHAReRaNo": "P51800013052",
+      "projectLink": "/project-rera/emerald-isle-t10-mumbai-suburban-by-larsen-amp-toubro-ltd-realty-division/P51800013052",
+      "projectText": "Emerald Isle - T10"
+    },
+    {
+      "developer": "Kalpataru Plus Sharyans",
+      "location": "Nahar'S Amrit Shakti Road, Chandivali, Chandivali, Nahar'S Amrit Shakti Road, Mumbai Suburban, 400072",
+      "mAHAReRaNo": "P51800001512",
+      "projectLink": "/project-rera/kalpataru-woodsville-nahar39s-amrit-shakti-road-by-kalpataru-plus-sharyans/P51800001512",
+      "projectText": "Kalpataru Woodsville"
+    },
+    {
+      "developer": "Evie Real Estate Private Limited",
+      "location": "Kanjurmarg, Kanjurmarg(E), Kanjurmarg(E), Kanjurmarg, Mumbai Suburban, 400042",
+      "mAHAReRaNo": "P51800001477",
+      "projectLink": "/project-rera/runwal-bliss-wing-e-kanjurmarg-by-evie-real-estate-private-limited/P51800001477",
+      "projectText": "Runwal Bliss Wing - E"
+    },
+    {
+      "developer": "Joyville Shapoorji Housing Private Limited",
+      "location": "Virar, Virar, Virar, Palghar, 401303",
+      "mAHAReRaNo": "P51900000444",
+      "projectLink": "/project-rera/joyville-virar-phase-1-virar-by-joyville-shapoorji-housing-private-limited/P51900000444",
+      "projectText": "Joyville Virar Phase 1"
+    },
+    {
+      "developer": "Joyville Shapoorji Housing Private Limited",
+      "location": "Virar, Virar, Virar, Palghar, 401303",
+      "mAHAReRaNo": "P99000013612",
+      "projectLink": "/project-rera/joyville-virar-phase-2-virar-by-joyville-shapoorji-housing-private-limited/P99000013612",
+      "projectText": "Joyville Virar Phase 2"
+    },
+    {
+      "developer": "Joyville Shapoorji Housing Private Limited",
+      "location": "Virar, Virar, Virar, Palghar, 401303",
+      "mAHAReRaNo": "P99000019531",
+      "projectLink": "/project-rera/joyville-virar-phase-5-virar-by-joyville-shapoorji-housing-private-limited/P99000019531",
+      "projectText": "Joyville Virar Phase 5"
+    },
+    {
+      "developer": "Joyville Shapoorji Housing Private Limited",
+      "location": "Virar, Virar, Virar, Palghar, 401303",
+      "mAHAReRaNo": "P99000019538",
+      "projectLink": "/project-rera/joyville-virar-phase-4-virar-by-joyville-shapoorji-housing-private-limited/P99000019538",
+      "projectText": "Joyville Virar Phase 4"
+    },
+    {
+      "developer": "Mayfair Housing",
+      "location": "Hiranandani Link Road, Vikhroli, Vikhroli, Hiranandani Link Road, Mumbai Suburban, 400079",
+      "mAHAReRaNo": "P51800020140",
+      "projectLink": "/project-rera/mayfair-the-view-hiranandani-link-road-by-mayfair-housing/P51800020140",
+      "projectText": "Mayfair The View"
+    },
+    {
+      "developer": "Susneh Infrapark Private Limited",
+      "location": "Vill. Kanjurmarg, Kanjurmarg East, Kanjurmarg East, Vill. Kanjurmarg, Mumbai Suburban, 400042",
+      "mAHAReRaNo": "P51800026860",
+      "projectLink": "/project-rera/runwal-avenue-wing-j-vill-kanjurmarg-by-susneh-infrapark-private-limited/P51800026860",
+      "projectText": "Runwal Avenue Wing-J"
+    },
+    {
+      "developer": "",
+      "location": "",
+      "mAHAReRaNo": "P52100016131",
+      "projectLink": "",
+      "projectText": ""
+    },
+    {
+      "developer": "",
+      "location": "",
+      "mAHAReRaNo": "P52100018502",
+      "projectLink": "",
+      "projectText": ""
+    },
+    {
+      "developer": "",
+      "location": "",
+      "mAHAReRaNo": "P52100016775",
+      "projectLink": "",
+      "projectText": ""
+    },
+    {
+      "developer": "",
+      "location": "",
+      "mAHAReRaNo": "P52100016786",
+      "projectLink": "",
+      "projectText": ""
+    },
+    {
+      "developer": "",
+      "location": "",
+      "mAHAReRaNo": "P52100016252",
+      "projectLink": "",
+      "projectText": ""
+    }
+  ],
+  "properties": [
+    {
+      "building": "Brentwood",
+      "createdAt": "22-Nov",
+      "floor": " ",
+      "location": "Powai",
+      "locationLink": "/location/powai",
+      "price": "₹ 5.8 Crs",
+      "propertyLink": "/listing/3-bhk-apartment-sale-brentwood-powai-hiranandani-gardens/9667061",
+      "propertyName": "3 BHK Flat on outright",
+      "updatedAt": "22-Nov"
+    },
+    {
+      "building": "Glen Dale",
+      "createdAt": "22-Nov",
+      "floor": " ",
+      "location": "Powai",
+      "locationLink": "/location/powai",
+      "price": "₹ 9.5 Crs",
+      "propertyLink": "/listing/3-bhk-apartment-sale-glen-dale-powai-hiranandani-gardens/9667062",
+      "propertyName": "3 BHK Flat on outright",
+      "updatedAt": "22-Nov"
+    },
+    {
+      "building": "Hiranandani Glen Croft",
+      "createdAt": "22-Nov",
+      "floor": " ",
+      "location": "Powai",
+      "locationLink": "/location/powai",
+      "price": "₹ 3.8 Crs",
+      "propertyLink": "/listing/2-bhk-apartment-sale-hiranandani-glen-croft-powai-hiranandani-gardens/9667063",
+      "propertyName": "2 BHK Flat on outright",
+      "updatedAt": "22-Nov"
+    },
+    {
+      "building": "Zen Atlantis",
+      "createdAt": "22-Nov",
+      "floor": " ",
+      "location": "Powai",
+      "locationLink": "/location/powai",
+      "price": "₹ 3.4 Crs",
+      "propertyLink": "/listing/2-bhk-apartment-sale-zen-atlantis-powai-hiranandani-garden/9667064",
+      "propertyName": "2 BHK Flat on outright",
+      "updatedAt": "22-Nov"
+    },
+    {
+      "building": "The View",
+      "createdAt": "22-Nov",
+      "floor": " ",
+      "location": "Powai",
+      "locationLink": "/location/powai",
+      "price": "₹ 10 Crs",
+      "propertyLink": "/listing/4-bhk-apartment-sale-the-view-powai-powai-off-hiranandani/9667065",
+      "propertyName": "4 BHK Flat on outright",
+      "updatedAt": "22-Nov"
+    }
+  ],
+  "specializations": [
+    "Residential Lease",
+    "Commercial Lease",
+    "Residential Outright",
+    "Commercial Outright",
+    ""
+  ]
+}

@@ -45,7 +45,8 @@ func WriteJsonFile[T interface{}](filename string, v T) error {
 		return err
 	}
 
-	fmt.Println("Data written to file: ", filename, "\n")
+	fmt.Println("Data written to file: ", filename)
+	fmt.Println() // Add an empty line after printing the message.
 
 	return nil
 }

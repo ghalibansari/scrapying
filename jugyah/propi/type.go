@@ -28,9 +28,10 @@ type Settings struct {
 }
 
 type AgentUrlDetail struct {
-	Url        string `json:"url"`
-	PageNumber int    `json:"pageNumber"`
-	Fetched    bool   `json:"fetched"`
+	Url        string      `json:"url"`
+	PageNumber int         `json:"pageNumber"`
+	Fetched    bool        `json:"fetched"`
+	Data       interface{} `json:"data"`
 }
 type AgentsUrlMap map[string]AgentUrlDetail
 
